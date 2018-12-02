@@ -38,12 +38,27 @@ class UserManager extends Model
 	  		throw new Exception("Aucun utilisateur n'a été trouvé");
 	  	}
 	}
+	//METHODE POUR CONNAITRE L UNICITE D UN UTILISATEUR PAR RAPPORT A SON PSEUDO OU A SON EMAIL
+	public function existUser($pseudo="",$email="")
+	{
+		$request = "SELECT * FROM users WHERE pseudo=? OR email=?";
+		$results = $this->requestExec($request,array($pseudo,$email));
+		//ON VERIFIE SI UN UTILISATEUR EXISTE DEJA 
+	  	if ($results->rowCount() == 1)
+	  	{
+	    	return true;
+	  	}
+	  	else
+	  	{
+	  		return false;
+	  	}
+	}
 	//METHODE POUR AJOUTER UN UTILISATEUR
 	public function addUser($pseudo="",$password="",$email="")
 	{
 		$request = "INSERT INTO users (pseudo,password,email,created_at,updated_at) VALUES (?,?,?,?,?)";
-		$created_at=date("Y-m-d H:i:s");;
-		$updated_at=date("Y-m-d H:i:s");;
+		$created_at=date("Y-m-d H:i:s");
+		$updated_at=date("Y-m-d H:i:s");
 		$results = $this->requestExec($request,array(
 						$pseudo,
 						$password,

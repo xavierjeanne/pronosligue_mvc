@@ -69,7 +69,7 @@ class Router
     // GERE UNE ERREUR D EXECUTION
   private function getError(Exception $exception) {
     $view = new View('Error');
-    $view->display(array('msgErreur' => $exception->getMessage()));
+    $view->display(array('messError' => $exception->getMessage()));
   }
 }
 

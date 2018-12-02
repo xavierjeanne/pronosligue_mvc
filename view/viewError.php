@@ -1,7 +1,7 @@
-<?php $titre = 'Erreur'; ?>
+<?php $this->title = 'Erreur'; ?>
 
 
-Erreur : <?php echo $messError; ?>
+Erreur : <?= $messError; ?>
 	
 
 
