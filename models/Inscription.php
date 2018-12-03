@@ -24,7 +24,9 @@ class Inscription extends Model
             ));
             if($results->rowCount()==1)
             {
-                $data = $results->fetch();
+                $req = "SELECT id,admin,step FROM users WHERE pseudo=?";
+                $res = $this->requestExec($req,array($pseudo));
+                $data = $res->fetch();
                 // ON CREER LES VARIABLES DE SESSION
                 $_SESSION['pseudo']=$pseudo;
                 $_SESSION['id']=$data['id'];

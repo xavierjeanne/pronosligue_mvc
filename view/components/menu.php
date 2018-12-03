@@ -36,7 +36,7 @@
 	      		{
 	      		?>
 	      			<li class="nav-item">
-	        			<a class="nav-link" href="profil"><?= $_SESSION['pseudo'];?></a>
+	        			<a class="nav-link" href="profil/profil"><?= $_SESSION['pseudo'];?></a>
 	      			</li>
 			      	<li class="nav-item">
 			        	<a class="nav-link" href="connection/deconnection">Déconnexion</a>
