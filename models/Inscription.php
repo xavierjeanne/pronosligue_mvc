@@ -6,38 +6,26 @@ require_once 'models/UserManager.php';
 
 class Inscription extends Model
 {	
-	function VerifInscription($pseudo='',$email='',$password='')
+	function makeInscription($pseudo='',$email='',$password='')
     {
         try
         {
-        	//ON PREPARE LA REQUETE
-            $request = "INSERT INTO users (pseudo,password,email,created_at,updated_at) VALUES (?,?,?,?,?)";
-            $created_at=date("Y-m-d H:i:s");
-            $updated_at=date("Y-m-d H:i:s");
-            $passwordhash = hash('sha256', $password);
-            $results = $this->requestExec($request,array(
-                        $pseudo,
-                        $passwordhash,
-                        $email,
-                        $created_at,
-                        $updated_at
-            ));
-            if($results->rowCount()==1)
-            {
-                $req = "SELECT id,admin,step FROM users WHERE pseudo=?";
-                $res = $this->requestExec($req,array($pseudo));
-                $data = $res->fetch();
-                // ON CREER LES VARIABLES DE SESSION
-                $_SESSION['pseudo']=$pseudo;
-                $_SESSION['id']=$data['id'];
-                $_SESSION['admin']=$data['admin'];
-                $_SESSION['step']=$data['step'];
-                return true;
-            }
-            else
-            {
-                return false;   
-            }
+        	//ON HASH LE MOT DE PASSE
+            $password = hash('sha256', $password);
+            //ON CREER UN OBJET UTILISATEUR
+            $user= new User(array('pseudo' => $pseudo,'password' => $password,'email' => $email));
+            //ON APPELLE LA METHODE AJOUTER UTILISATEUR SUR CET UTILISATEUR
+            $usermanager= new UserManager();
+            $usermanager->addUser($user);
+            $req = "SELECT id,admin,step FROM users WHERE pseudo=?";
+            $res = $this->requestExec($req,array($pseudo));
+            $data = $res->fetch();
+            // ON CREER LES VARIABLES DE SESSION
+            $_SESSION['pseudo']=$pseudo;
+            $_SESSION['id']=$data['id'];
+            $_SESSION['admin']=$data['admin'];
+            $_SESSION['step']=$data['step'];
+            return true;
         }
         catch (PDOException $e)
         {

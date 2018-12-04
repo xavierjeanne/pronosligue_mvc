@@ -17,10 +17,10 @@ class ControllerInscription extends Controller
     }
 
     // METHODE POUR INSCRIPTION DES MEMBRES
-    function inscription($args=null)
+    function default($args=null)
     {
         $arrayArgs=array('pseudo'=>'','email'=>'','password'=>'','password_check'=>'','submit'=>'');
-       // SI LE PARAMETRE EST UN TABLEAU NON VIDE
+        // SI LE PARAMETRE EST UN TABLEAU NON VIDE
         if(is_array($args) && !empty($args))
        	{
             // POUR CHAQUE CLEFS ON RECUPERE LA VALEUR
@@ -44,11 +44,11 @@ class ControllerInscription extends Controller
             //ON VERIFIE QUE LES DEUX MOTS DE PASSE SONT IDENTIQUES
             if($password==$password_check)
             {
-                //ON VERIFIE QUE LE PSEUDO OU L EMAIL N ESTY PAS DEJA PRIS
+                //ON VERIFIE QUE LE PSEUDO OU L EMAIL N EST PAS DEJA PRIS
                 if(!($this->usermanager->existUser($pseudo,$email)))
                 {
-                     //ON VERIFIE QUE LES PSEUDO ET MOT DE PASSE CORRESPONDENT
-                    if($this->inscription->verifInscription($pseudo,$email,$password))
+                     //ON ENREGISTRE LES DONNEES DANS LA BASE
+                    if($this->inscription->makeInscription($pseudo,$email,$password))
                     {
                         $id=$_SESSION['id'];
                         $user = $this->usermanager->getUser($id);
@@ -89,13 +89,6 @@ class ControllerInscription extends Controller
            	//PREMIER PASSAGE ON REDIRIGE SUR LE FOMULAIRE DE CONNECTION
             $view = new View('Inscription');
             $view->display(array('error'=>''));
-
-
-
         }
-    }
-    function default($args=null) 
-    {
-        echo 'défaut inscription<br /><br /><br /><br /><br /><br /><br />';
     }
 }

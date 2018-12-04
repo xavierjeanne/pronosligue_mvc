@@ -11,7 +11,7 @@ class ControllerHome extends Controller
 		$this->usermanager = new UserManager();
 	}
 	//GENERER LA VUE DE L ACCUEIL
-	public function home()
+	public function default()
 	{
 		
 		try
@@ -95,8 +95,5 @@ class ControllerHome extends Controller
 		}
 	    
   	}
-  	public function default()
-  	{
-  		echo "page par defaut";
-  	}
+  
 }

@@ -59,7 +59,7 @@ class Router
     private function createAction(HttpRequest $httpRequest) 
     {
       // Action par defaut
-      $action = "home";  
+      $action = "default";  
       if ($httpRequest->existParam('action')) 
       {
         $action = $httpRequest->getParam('action');

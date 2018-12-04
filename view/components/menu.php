@@ -23,12 +23,6 @@
 		      	<li class="nav-item">
 		        	<a class="nav-link" href="score">Score</a>
 		      	</li>
-		      	<li class="nav-item">
-		        	<a class="nav-link" href="bonus">Bonus</a>
-		      	</li>
-		     	<li class="nav-item">
-		        	<a class="nav-link" href="pub">Pub</a>
-		      	</li>
 	    	</ul>
 	    	<ul class="navbar-nav ml-auto">
 	      		<?php 
@@ -36,14 +30,11 @@
 	      		{
 	      		?>
 	      			<li class="nav-item">
-	        			<a class="nav-link" href="profil/profil"><?= $_SESSION['pseudo'];?></a>
+	        			<a class="nav-link" href="profil"><?= $_SESSION['pseudo'];?></a>
 	      			</li>
 			      	<li class="nav-item">
 			        	<a class="nav-link" href="connection/deconnection">Déconnexion</a>
 			      	</li>
-			      	<li class="nav-item">
-		       			<a class="nav-link" href="notification">Notification</a>
-		      		</li>
 		      		<?php if($_SESSION['admin'] == 1)
 		      		{
 		      		?>

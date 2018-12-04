@@ -9,4 +9,4 @@
     <input type="submit" name="submit" value="Connection" />
 </form>
 <p><?= $error;?></p>
-<p><a href="inscription/inscription">Inscription</a></p>
+<p><a href="inscription">Inscription</a></p>

@@ -41,20 +41,11 @@ class ControllerConnection extends Controller
 			//ON VERIFIE QUE LES PSEUDO ET MOT DE PASSE CORRESPONDENT
             if($this->connection->getConnection($pseudo,$password))
             {
-            	$id=$_SESSION['id'];
-                $user = $this->usermanager->getUser($id);
-                //ON REDIRIGE VERS LA PAGE PROFIL
-                $view = new View('Profil');
-                $view->display(array('user'=>$user));
-
-            }
-            else
-            {
-                $_SESSION['pseudo_connection']=$pseudo;
-                $error = "Veuillez vérifier vos informations de connexion";
-                //ON REDIRIGE VERS LE FORMULAIRE DE CONNECTION
-                $view = new View('Connection');
-                $view->display(array('error'=>$error));
+            $id=$_SESSION['id'];
+            $user = $this->usermanager->getUser($id);
+            //ON REDIRIGE VERS LA PAGE PROFIL
+            $view = new View('Profil');
+            $view->display(array('user'=>$user));
             }
         }
         else
@@ -88,9 +79,7 @@ class ControllerConnection extends Controller
             $view->display(array('messError' => $e->getMessage()));
         }
     }
-
-    function default($args=null) 
+    public function default()
     {
-        echo 'défaut authentification<br /><br /><br /><br /><br /><br /><br />';
     }
 }
