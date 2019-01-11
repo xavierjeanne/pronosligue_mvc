@@ -1,5 +1,5 @@
 <?php 
-//ON INCLUT LE CONTROLLER PRINCIPAL ET LA CLASSE CONNEXION
+//ON INCLUT LE CONTROLLER PRINCIPAL ET LA CLASSE USERMANAGER
 require_once 'framework/Controller.php';
 require_once 'models/UserManager.php';
 
@@ -11,10 +11,12 @@ class ControllerRanking extends Controller
 	{
 		$this->usermanager = new UserManager();
 	}
+	//AFFICHAGE DU CLASSEMENT DES MEMBRES PAR POINT
 	public function default()
 	{
 		try
 		{
+			//AFFICHAGE DE LA VUE RANKING
 			$view = new View("Ranking");
 			$users = $this->usermanager->getUsers();
 			$view->display(array('users'=>$users));

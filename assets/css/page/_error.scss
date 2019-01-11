@@ -1,0 +1,19 @@
+.error{
+	background:linear-gradient(#606e84,black);
+	min-height:800px;
+	.error_message{
+		width:70%;
+		margin:0 auto;
+		background-color:white;
+		opacity:0.85;
+		padding:20px;
+	}
+}
+@media(max-width: 768px){
+	.error{
+		.error_message{
+			width:100% !important;
+			margin:0;
+		}
+	}
+}

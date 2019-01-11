@@ -5,13 +5,20 @@ require_once 'models/Team.php';
 
 class TeamManager extends Model
 {
-	//METHODE POUR AFFICHER LA LISTE DES EQUIPES
-	public function getTeams()
+	//METHODE POUR AFFICHER LA LISTE DES EQUIPES EN FONCTION D UN PARAMETRE 
+	public function getTeams($order='')
 	{
+		$this->rangeTeams();
 		$teams = [];
 		//PREPARATION DE LA REQUETE
-		$request = "SELECT * FROM teams ORDER BY point DESC , goal_difference DESC";
-		//ON APPELLE LA METHODE REQUETE DU MODELE
+		if(empty($order))
+		{
+			$request = "SELECT * FROM teams ORDER BY point DESC , goal_difference DESC,day ASC";
+		}
+		else
+		{
+			$request = "SELECT * FROM teams ORDER BY $order ASC";
+		}
 		$results = $this->requestExec($request);
 		while($data = $results->fetch())
 		{
@@ -21,16 +28,14 @@ class TeamManager extends Model
 	}
 
 	//METHODE POUR AFFICHER UNE EQUIPE
-	public function getTeam($id="") 
+	public function getTeam($id='') 
 	{
 
 	  	$request = "SELECT * FROM teams WHERE id=?";
 	  	$results = $this->requestExec($request,array($id));
-	  	//ON ACCEDE A LA PREMIERE LIGNE DE RESULTAT
 	  	if ($results->rowCount() == 1)
 	  	{
 	    	$data = $results->fetch(); 
-	    	//ON RENVOIE UN OBJET EQUIPE
 	    	return new team($data);
 	  	}
 	  	else
@@ -42,23 +47,25 @@ class TeamManager extends Model
 	//METHODE POUR AJOUTER UNE EQUIPE
 	public function addTeam(Team $team)
 	{
-		$request = "INSERT INTO teams (name,alias,flag,jersey,created_at,updated_at) VALUES (?,?,?,?,?,?)";
-		$created_at=date("Y-m-d H:i:s");
-		$updated_at=date("Y-m-d H:i:s");
-		$results = $this->requestExec($request,array(
+		$request = "SELECT 1 + count(*) as ranking FROM teams";
+		$results = $this->requestExec($request);
+		$data = $results->fetch();
+		$ranking = $data['ranking'];
+		$ranking_before = $data['ranking'];
+		$requestbis = "INSERT INTO teams (name,alias,flag,jersey,ranking,ranking_before) VALUES (?,?,?,?,?,?)";
+		$resultsbis = $this->requestExec($requestbis,array(
 						$team->getName(),
 						$team->getAlias(),
 						$team->getFlag(),
 						$team->getJersey(),
-						$created_at,
-						$updated_at
+						$ranking,
+						$ranking_before
 			));
 	}
 	// //METHODE POUR METTRE A JOUR UNE EQUIPE
 	public function updateTeam(Team $team)
 	{
-		$request = "UPDATE teams SET name=?,alias=?,flag=?,jersey=?,day=?,point=?,won=?,drawn=?,lost=?,goal_for=?,goal_against=?,goal_difference=?,ranking=?,ranking_before=?,form_1=?,form_2=?,form_3=?,form_4=?,form_5=?,home_form_1=?,home_form_2=?,home_form_3=?,home_form_4=?,home_form_5=?,outside_form_1=?,outside_form_2=?,outside_form_3=?,outside_form_4=?,outside_form_5=?,created_at=?,updated_at=? WHERE id = ? ";
-		$updated_at=date("Y-m-d H:i:s");
+		$request = "UPDATE teams SET name=?,alias=?,flag=?,jersey=?,day=?,point=?,won=?,drawn=?,lost=?,goal_for=?,goal_against=?,goal_difference=?,ranking=?,ranking_before=? WHERE id = ? ";
 		$results = $this->requestExec($request,array(
 						$team->getName(),
 						$team->getAlias(),
@@ -74,25 +81,56 @@ class TeamManager extends Model
 						$team->getGoal_difference(),
 						$team->getRanking(),
 						$team->getRanking_before(),
-						$team->getForm_1(),
-						$team->getForm_2(),
-						$team->getForm_3(),
-						$team->getForm_4(),
-						$team->getForm_5(),
-						$team->getHome_form_1(),
-						$team->getHome_form_2(),
-						$team->getHome_form_3(),
-						$team->getHome_form_4(),
-						$team->getHome_form_5(),
-						$team->getOutside_form_1(),
-						$team->getOutside_form_2(),
-						$team->getOutside_form_3(),
-						$team->getOutside_form_4(),
-						$team->getOutside_form_5(),
-						$team->getCreated_at(),
-						$updated_at,
 						$team->getId()
 			));
+		$this->rangeTeams();
+	}
+	// METHODE POUR CLASSER LES EQUIPES
+	public function rangeTeams()
+	{
+		$request = "SELECT * FROM teams ORDER BY point DESC ,goal_difference DESC,day ASC";
+		$results = $this->requestExec($request);
+		$i=1;
+		while($data = $results->fetch())
+		{
+			$team = new Team($data);
+			$ranking=$i;
+			$ranking_before=$team->getRanking();
+			$requestbis ="UPDATE teams SET ranking=?,ranking_before=? WHERE id = ?";
+			$resultsbis = $this->requestExec($requestbis,array(
+							$ranking,
+							$ranking_before,
+							$team->getId()
+			));
+			$ranking =[];
+			if($i==1)
+			{
+				$podium1 = $team->getId();
+			}
+			elseif($i==2)
+			{
+				$podium2 = $team->getId();
+			}
+			elseif($i==3)
+			{
+				$podium3 = $team->getId();
+			}
+			elseif($i==18)
+			{
+				$relegation18 = $team->getId();
+			}
+			elseif($i==19)
+			{
+				$relegation19 = $team->getId();
+			}
+			elseif($i==20)
+			{
+				$relegation20 = $team->getId();
+			}
+			$i++;
+		}
+		return $ranking=[$podium1,$podium2,$podium3,$relegation18,$relegation19,$relegation20];
+
 	}
 	//METHODE POUR EFFACER UNE EQUIPE
 	 public function delete(team $team)

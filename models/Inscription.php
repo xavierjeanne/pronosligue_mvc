@@ -6,15 +6,15 @@ require_once 'models/UserManager.php';
 
 class Inscription extends Model
 {	
-	function makeInscription($pseudo='',$email='',$password='')
+	function makeInscription($pseudo='',$avatar='',$password='',$email='')
     {
         try
         {
         	//ON HASH LE MOT DE PASSE
             $password = hash('sha256', $password);
             //ON CREER UN OBJET UTILISATEUR
-            $user= new User(array('pseudo' => $pseudo,'password' => $password,'email' => $email));
-            //ON APPELLE LA METHODE AJOUTER UTILISATEUR SUR CET UTILISATEUR
+            $user= new User(array('pseudo' => $pseudo,'avatar'=>$avatar,'password' => $password,'email' => $email));
+            //ON APPELLE LA METHODE AJOUTER  SUR CET UTILISATEUR
             $usermanager= new UserManager();
             $usermanager->addUser($user);
             $req = "SELECT id,admin,step FROM users WHERE pseudo=?";
@@ -25,6 +25,7 @@ class Inscription extends Model
             $_SESSION['id']=$data['id'];
             $_SESSION['admin']=$data['admin'];
             $_SESSION['step']=$data['step'];
+            //ON RENVOI TRUE SI TOUT C EST BIEN PASSE
             return true;
         }
         catch (PDOException $e)

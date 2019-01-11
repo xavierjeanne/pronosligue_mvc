@@ -1,0 +1,35 @@
+.admin{
+	background:linear-gradient(#606e84,black);
+	min-height:800px;
+	.adminnav{
+		width:70%;
+		margin:0 auto;
+		background-color:white;
+		opacity:0.85;
+		padding:20px;
+		.modifier i{
+			color:red;
+			font-size:1.5rem;
+			transition:1s;
+			&:hover{
+				color:#ba0b0b;
+			}
+		}
+		.valider i{
+			color:#07b515;
+			font-size:1.5rem;
+			transition:1s;
+			&:hover{
+				color:green;
+			}
+		}
+	}
+}
+@media(max-width: 768px){
+	.admin{
+		.adminnav{
+			width:100% !important;
+			margin:0;
+		}
+	}
+}

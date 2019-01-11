@@ -11,6 +11,7 @@ class ControllerLeague extends Controller
 	{
 		$this->teammanager = new TeamManager();
 	}
+	//AFFICHAGE DU CLASSEMENT DE LIGUE 1
 	public function default()
 	{
 		try

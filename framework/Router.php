@@ -1,6 +1,6 @@
 <?php
 require_once 'framework/HttpRequest.php';
-require_once 'view/View.php';
+require_once 'framework/View.php';
 //CLASSE QUI VA TRAITER LES REQUETES ET REDIRIGER VERS LE BON CONTROLEUR
 class Router 
 {
@@ -34,12 +34,11 @@ class Router
         $controller = $httpRequest->getParam('controller');
       }
 
-      // CREATION DU NOM DU FICHIER DU CONTROLLEUR
-      $fileController = "controllers/Ctrl_" . $controller . ".php";
       // PREMIERE LETTRE EN MAJUSCULE
       $controller = ucfirst($controller);
+      // CREATION DU NOM DU FICHIER DU CONTROLLEUR
+      $fileController = "controllers/Ctrl_" . $controller . ".php";
       $classController = "Controller" . $controller;
-      
       // SI LE FICHIER DE LA CLASSE CONTROLLEUR EXISTE
       if (file_exists($fileController)) 
       {

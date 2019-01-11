@@ -1,0 +1,26 @@
+.bet{
+	background:linear-gradient(#606e84,black);
+	min-height:800px;
+	
+	.betday{
+		width:70%;
+		margin:0 auto;
+		background-color:white;
+		opacity:0.85;
+		padding:20px;	
+	}
+	button a{
+		color:white;
+	}
+	input:checked{
+		border:3px solid black !important;
+	}
+}
+@media(max-width: 768px){
+	.bet{
+		.betday{
+			width:100% !important;
+			margin:0;
+		}
+	}
+}

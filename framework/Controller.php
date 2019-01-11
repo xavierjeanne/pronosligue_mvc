@@ -1,6 +1,6 @@
 <?php
 require_once 'framework/HttpRequest.php';
-require_once 'view/View.php';
+require_once 'framework/View.php';
 
 abstract class Controller 
 {
@@ -34,16 +34,6 @@ abstract class Controller
 	// METHODE ABSTRAITE CORRESPONDANT A LA PAGE PAR DEFAUT OBLIGEANT LES CLASSES DERIVEES A L IMPLEMENTER
 	public abstract function default();
 	
-	// // GENERE LA VUE ASSOCIEE AU CONTROLLEUR COURRANT
-	// protected function generateView($dataView = array()) 
-	// {
-	// 	// DETERMINE LE NOM DU FICHIER DE LA VUE A PARTIR DU NOM DU CONTROLLEUR
-	// 	$classController = get_class($this);
-	// 	$controller = str_replace("Controller", "", $classController);
 	
-	// 	// INSTANCIATION ET GENERATION DE LA VUE
-	// 	$view = new View($this->action, $controller);
-	// 	$view->display($dataView);
-	// }
 }
 

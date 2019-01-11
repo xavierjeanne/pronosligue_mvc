@@ -1,0 +1,11 @@
+.paging{
+	nav a{
+		color:white;
+		background-color:#3b3d42;
+		border:0px;
+		transition:1s;
+		&:hover{
+			color:black;
+		}
+	}
+}

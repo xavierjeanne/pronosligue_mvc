@@ -1,0 +1,29 @@
+.profil{
+	background:linear-gradient(#606e84,black);
+	min-height:800px;
+	
+	.profilinfo{
+		width:70%;
+		margin:0 auto;
+		background-color:white;
+		opacity:0.85;
+		padding:20px;
+		min-height:600px;	
+	}
+	.update i{
+		color:gray;
+		font-size:1.5rem;
+		transition:1s;
+		&:hover{
+			color:black;
+		}
+	}
+}
+@media(max-width: 768px){
+	.profil{
+		.profilinfo{
+			width:100% !important;
+			margin:0;
+		}
+	}
+}

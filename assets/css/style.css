@@ -1,0 +1,243 @@
+header .navbar {
+  border-bottom: 4px solid gray; }
+
+@font-face {
+  font-family: roboto;
+  src: url("../font/Roboto.ttf"); }
+#main {
+  min-height: 700px;
+  background-color: white;
+  font-family: "roboto"; }
+
+.paging nav a {
+  color: white;
+  background-color: #3b3d42;
+  border: 0px;
+  transition: 1s; }
+  .paging nav a:hover {
+    color: black; }
+
+footer {
+  background-color: #cbd1db; }
+  footer a {
+    color: gray;
+    transition: 0.8s; }
+    footer a:hover {
+      color: black;
+      text-decoration: none; }
+  footer ul {
+    list-style-type: none; }
+
+.home {
+  background-image: url("../img/design/bet.png");
+  background-size: cover;
+  min-height: 800px; }
+  .home .day {
+    width: 70%;
+    margin: 0 auto;
+    background-color: white;
+    opacity: 0.85;
+    padding: 20px; }
+    .home .day i {
+      color: gray;
+      font-size: 1.5rem;
+      transition: 1s; }
+      .home .day i:hover {
+        color: black; }
+  .home .daymenu {
+    background-color: white;
+    opacity: 0.8;
+    padding: 20px;
+    transition: 1s; }
+    .home .daymenu:hover {
+      opacity: 0.9; }
+    .home .daymenu a {
+      font-size: 1.2rem;
+      text-decoration: none;
+      color: gray;
+      transition: 1s; }
+      .home .daymenu a:hover {
+        color: black; }
+
+@media (max-width: 768px) {
+  .home .day {
+    width: 100% !important;
+    margin: 0; } }
+.bet {
+  background: linear-gradient(#606e84, black);
+  min-height: 800px; }
+  .bet .betday {
+    width: 70%;
+    margin: 0 auto;
+    background-color: white;
+    opacity: 0.85;
+    padding: 20px; }
+  .bet button a {
+    color: white; }
+  .bet input:checked {
+    border: 3px solid black !important; }
+
+@media (max-width: 768px) {
+  .bet .betday {
+    width: 100% !important;
+    margin: 0; } }
+.ranking {
+  background: linear-gradient(#606e84, black);
+  min-height: 800px; }
+  .ranking .rankingtable {
+    width: 70%;
+    margin: 0 auto;
+    background-color: white;
+    opacity: 0.85;
+    padding: 20px; }
+    .ranking .rankingtable img {
+      width: 50px;
+      height: auto; }
+
+@media (max-width: 768px) {
+  .ranking .rankingtable {
+    width: 100% !important;
+    margin: 0; } }
+.result {
+  background: linear-gradient(#606e84, black);
+  min-height: 800px; }
+  .result .resulttable {
+    width: 70%;
+    margin: 0 auto;
+    background-color: white;
+    opacity: 0.85;
+    padding: 20px;
+    min-height: 750px; }
+    .result .resulttable .avatar img {
+      width: 50px;
+      height: auto; }
+
+@media (max-width: 768px) {
+  .result .resulttable {
+    width: 100% !important;
+    margin: 0; } }
+.league {
+  background: linear-gradient(#606e84, black);
+  min-height: 800px; }
+  .league .leaguetable {
+    width: 70%;
+    margin: 0 auto;
+    background-color: white;
+    opacity: 0.85;
+    padding: 20px; }
+  .league button a {
+    color: white; }
+
+@media (max-width: 768px) {
+  .league .leaguetable {
+    width: 100% !important;
+    margin: 0; } }
+.point {
+  background: linear-gradient(#606e84, black);
+  min-height: 800px; }
+  .point .daypoint {
+    width: 70%;
+    margin: 0 auto;
+    background-color: white;
+    opacity: 0.85;
+    padding: 20px; }
+    .point .daypoint img {
+      width: 50px;
+      height: auto; }
+
+@media (max-width: 768px) {
+  .point .daypoint {
+    width: 100% !important;
+    margin: 0; } }
+.error {
+  background: linear-gradient(#606e84, black);
+  min-height: 800px; }
+  .error .error_message {
+    width: 70%;
+    margin: 0 auto;
+    background-color: white;
+    opacity: 0.85;
+    padding: 20px; }
+
+@media (max-width: 768px) {
+  .error .error_message {
+    width: 100% !important;
+    margin: 0; } }
+.connection {
+  background: linear-gradient(#606e84, black);
+  min-height: 700px; }
+  .connection .connection_form {
+    width: 70%;
+    margin: 0 auto;
+    background-color: white;
+    opacity: 0.85;
+    padding: 20px; }
+
+@media (max-width: 768px) {
+  .connection .connection_form {
+    width: 100% !important;
+    margin: 0; } }
+.profil {
+  background: linear-gradient(#606e84, black);
+  min-height: 800px; }
+  .profil .profilinfo {
+    width: 70%;
+    margin: 0 auto;
+    background-color: white;
+    opacity: 0.85;
+    padding: 20px;
+    min-height: 600px; }
+  .profil .update i {
+    color: gray;
+    font-size: 1.5rem;
+    transition: 1s; }
+    .profil .update i:hover {
+      color: black; }
+
+@media (max-width: 768px) {
+  .profil .profilinfo {
+    width: 100% !important;
+    margin: 0; } }
+.updateprofil {
+  background: linear-gradient(#606e84, black);
+  min-height: 800px; }
+  .updateprofil .updateprofilform {
+    width: 70%;
+    margin: 0 auto;
+    background-color: white;
+    opacity: 0.85;
+    padding: 20px;
+    min-height: 600px; }
+
+@media (max-width: 768px) {
+  .updateprofil .updateprofilform {
+    width: 100% !important;
+    margin: 0; } }
+.admin {
+  background: linear-gradient(#606e84, black);
+  min-height: 800px; }
+  .admin .adminnav {
+    width: 70%;
+    margin: 0 auto;
+    background-color: white;
+    opacity: 0.85;
+    padding: 20px; }
+    .admin .adminnav .modifier i {
+      color: red;
+      font-size: 1.5rem;
+      transition: 1s; }
+      .admin .adminnav .modifier i:hover {
+        color: #ba0b0b; }
+    .admin .adminnav .valider i {
+      color: #07b515;
+      font-size: 1.5rem;
+      transition: 1s; }
+      .admin .adminnav .valider i:hover {
+        color: green; }
+
+@media (max-width: 768px) {
+  .admin .adminnav {
+    width: 100% !important;
+    margin: 0; } }
+
+/*# sourceMappingURL=style.css.map */

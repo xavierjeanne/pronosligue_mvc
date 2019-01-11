@@ -3,22 +3,32 @@
 require_once 'framework/Controller.php';
 require_once 'models/Connection.php';
 require_once 'models/UserManager.php';
+require_once 'models/DayManager.php';
+require_once 'models/DayPointManager.php';
+
 
 class ControllerConnection extends Controller
 {
 	private $connection;
-	private $usermanager;
+    private $usermanager;
+    private $daymanager;
+    private $daypointmanager;
+	
     
     public function __construct() {
         
         $this->connection = new Connection();
         $this->usermanager = new UserManager();
+        $this->teammanager = new TeamManager();
+        $this->daymanager = new DayManager();
+        $this->daypointmanager = new DayPointManager();
+        
     }
 
     // METHODE DE CONNEXION ON RECUPERE LE NOM LE MOT DE PASSSE ET LE BOUTON DE VALIDATION
     function connection($args=null)
     {
-        $arrayArgs=array('pseudo'=>'','password'=>'','submit'=>'');
+        $arrayArgs=array('pseudo'=>'','password'=>'','avatar'=>'','submit'=>'');
        // SI LE PARAMETRE EST UN TABLEAU NON VIDE
         if(is_array($args) && !empty($args))
        	{
@@ -43,16 +53,39 @@ class ControllerConnection extends Controller
             {
             $id=$_SESSION['id'];
             $user = $this->usermanager->getUser($id);
+            $teams = $this->teammanager->getTeams();
+            $dayspoints = $this->daypointmanager->getAllDayPoints($id);
             //ON REDIRIGE VERS LA PAGE PROFIL
-            $view = new View('Profil');
-            $view->display(array('user'=>$user));
+                if($_SESSION['step']!=1)
+                {
+                    $view = new View("Step");
+                    $view->display(array('user'=> $user,'teams'=>$teams)); 
+                }
+                else
+                {
+                $podium1 = $user->getPodium1();
+                $podium2 = $user->getPodium2();
+                $podium3 = $user->getPodium3();
+                $relegation18 = $user->getRelegation18();
+                $relegation19 = $user->getRelegation19();
+                $relegation20 = $user->getRelegation20();
+                $podium1 = $this->teammanager->getTeam($podium1);
+                $podium2 = $this->teammanager->getTeam($podium2);
+                $podium3 = $this->teammanager->getTeam($podium3);
+                $relegation18 = $this->teammanager->getTeam($relegation18);
+                $relegation19 = $this->teammanager->getTeam($relegation19);
+                $relegation20 = $this->teammanager->getTeam($relegation20);
+                $view = new View("Profil");
+                $view->display(array('user'=> $user,'dayspoints'=>$dayspoints,'podium1'=>$podium1,'podium2'=>$podium2,'podium3'=>$podium3,'relegation18'=>$relegation18,'relegation19'=>$relegation19,'relegation20'=>$relegation20));
+                }
             }
         }
         else
         {
            	//PREMIER PASSAGE ON REDIRIGE SUR LE FOMULAIRE DE CONNECTION
+
             $view = new View('Connection');
-            $view->display(array('error'=>''));
+            $view->display(array('message'=>''));
 
 
 
@@ -60,18 +93,25 @@ class ControllerConnection extends Controller
     }
 
     //METHODE POUR LA DECONNEXION
-    function deconnection($args=null)
+    function deconnection()
     {
         try
         {
             //ON SUPPRIME LES VARIABLES DE SESSIONS
             session_unset ();
-
-           //ON RECUPERE LA LISTE DES UTILISATEURS
-            $users = $this->usermanager->getUsers();
-            //ON GENERE LA VUE EN LUI TRANSMETTANT L ACTION ET LES DONNEES
+            //ON RECUPERE LE NUMERO DE LA JOURNEE EN COURS 
+            if(!empty($this->daymanager->getCurrentDay()))
+            {
+                    $day=$this->daymanager->getCurrentDay();
+            }
+            else
+            {
+                    $day=$this->daymanager->getLastDay();
+            }
+            $matchs = $this->daymanager->getDay($day);
+            //ON GENERE LA VUE HOME AVEC LES PARAMTERE 
             $view = new View("Home");
-            $view->display(array('users'=> $users));
+            $view->display(array('matchs'=> $matchs,'day'=>$day));
         }
         catch (Exception $e)
         {

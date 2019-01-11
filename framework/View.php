@@ -18,12 +18,11 @@ class View
 	{
 		//GENERER LA PARTIE SPECIFIQUE DE LA VUE
 		$content = $this->generateHtml($this->_file, $data);
-		
 	    // RECUPERATION DU CHEMIN DU SITE POUR LA REECRITURE DES URI
-	    $racineWeb = Configuration::getParam("racineWeb", "/");
+	  //  $racineWeb = Configuration::getParam("racineWeb", "/");
 		//GENERER LE TEMPLATE AVEC LES PARAMETRE TITLE ET CONTENT
-		$resultsHtml = $this->generateHtml('view/template.php',array('title' => $this->_title, 'content' => $content,'racineWeb' => $racineWeb));
-
+		$resultsHtml = $this->generateHtml('view/template.php',array('title' => $this->_title, 'content' => $content));
+		
 		// RENVOI LA VUE 
 		echo $resultsHtml;
 	}
